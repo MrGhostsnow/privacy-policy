@@ -25,7 +25,7 @@
 <body>
 
   <h1>Privacy Policy</h1>
-  <p class="updated">Last updated: September 15, 2026</p>
+  <p class="updated">Last updated: November 2, 2026</p>
 
   <p>
     FlexReviews ("we", "our", or "us") is a Shopify app that displays product reviews
@@ -37,8 +37,10 @@
   <p>When you install FlexReviews, we collect and store the following:</p>
   <ul>
     <li><strong>Shop domain</strong> — your Shopify store's myshopify.com domain, used to identify your account.</li>
-    <li><strong>Judge.me API token</strong> — your private API token, used to sync reviews from your Judge.me account. Stored encrypted at rest.</li>
-    <li><strong>Review data</strong> — reviews synced from your Judge.me account, including reviewer name (as provided by Judge.me), rating, review text, and review date. We do not collect reviewer email addresses or any other personal information.</li>
+    <li><strong>Shopify access token</strong> — the token Shopify issues to the app when you install it, used to read your plan and to authenticate the app.</li>
+    <li><strong>Judge.me API token</strong> — your private API token, used to sync reviews from your Judge.me account. Stored encrypted at rest (AES-256-GCM).</li>
+    <li><strong>Review data</strong> — reviews synced from your Judge.me account: reviewer name (as provided by Judge.me), rating, title, review text, photo URLs, review date, the product the review belongs to, and verified-buyer status.</li>
+    <li><strong>Reviewer identifiers</strong> — when Judge.me provides them, the reviewer's Shopify customer ID and a one-way SHA-256 hash of the reviewer's email address. We use them only to find and delete a customer's reviews when Shopify sends a data deletion request. We never store the email address itself.</li>
     <li><strong>App configuration</strong> — your plan (Free or Pro) and sync interval preference.</li>
   </ul>
 
@@ -65,22 +67,32 @@
     session verification for all admin operations.
   </p>
   <p>
-    Your Judge.me API token is stored in our database and used solely to sync
-    review data on your behalf. It is never shared with third parties.
+    Your Judge.me API token is stored encrypted in our database and used solely
+    to sync review data on your behalf. It is never shared with third parties.
   </p>
 
   <h2>5. Data retention</h2>
   <p>
     We retain your data for as long as FlexReviews is installed on your store.
-    When you uninstall the app, we will delete all data associated with your store
-    within 48 hours, in accordance with Shopify's app requirements.
+    Reviews that are deleted or unpublished in Judge.me are removed from our
+    database at the next sync. If you disconnect Judge.me, syncing stops and the
+    reviews already synced stay in your account until you uninstall the app.
+  </p>
+  <p>
+    When you uninstall the app, syncing stops immediately. Shopify then sends us a
+    shop data deletion request (about 48 hours after uninstalling), and we delete
+    all data associated with your store when we receive it, in accordance with
+    Shopify's app requirements.
   </p>
 
   <h2>6. GDPR and data subject rights</h2>
   <p>
     FlexReviews complies with Shopify's mandatory GDPR webhook requirements.
-    If a customer requests access to or deletion of their data, or if you uninstall
-    the app and request data deletion, we will process that request promptly.
+    When Shopify sends a customer data deletion request, we delete that customer's
+    reviews from our database and stop importing them. When Shopify sends a customer
+    data request, we identify the reviews we hold for that customer; the reviews
+    themselves are owned by your Judge.me account, and Judge.me handles requests
+    for that data.
   </p>
   <p>To submit a data request, contact us at the email address below.</p>
 
